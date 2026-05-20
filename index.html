@@ -169,6 +169,7 @@
         <a href="#names"    class="nav-link"         data-tab="names">   <i class="fa-solid fa-star-and-crescent"></i><span data-i18n="tab_names">99 Ном</span></a>
         <a href="#tasbih"   class="nav-link"         data-tab="tasbih">  <i class="fa-solid fa-circle-notch"></i>    <span data-i18n="tab_tasbih">Тасбеҳ</span></a>
         <a href="#calendar" class="nav-link"         data-tab="calendar"><i class="fa-solid fa-calendar-days"></i>   <span data-i18n="tab_calendar">Тақвим</span></a>
+        <a href="#shuro"    class="nav-link"         data-tab="shuro">   <i class="fa-solid fa-users"></i>          <span data-i18n="tab_shuro">Шӯрои уламо</span></a>
       </nav>
       <div class="nav-controls">
         <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()"><script>
@@ -524,6 +525,156 @@
           </div>
         </div>
       </div>
+    <!-- 8. SHURO TAB -->
+    <section id="shuro-tab" class="tab-panel">
+      <!-- Cover Header -->
+      <div class="shuro-cover-section">
+        <div class="shuro-cover-overlay"></div>
+        <div class="shuro-cover-content">
+          <div class="shuro-badge"><i class="fa-solid fa-mosque"></i> <span data-i18n="shuro_badge_text">Маркази Исломии Ҷумҳурии Тоҷикистон</span></div>
+          <h2 class="shuro-main-title" data-i18n="shuro_main_title">Шӯрои Уламо</h2>
+          <p class="shuro-subtitle" data-i18n="shuro_main_subtitle">Ниҳоди олии фатво ва роҳнамоии динии Ҷумҳурии Тоҷикистон</p>
+        </div>
+      </div>
+
+      <!-- About Shuro Section -->
+      <div class="section-container">
+        <h3 class="section-title"><i class="fa-solid fa-circle-info"></i> <span data-i18n="shuro_about_title">Дар бораи Шӯро</span></h3>
+        <div class="card-glass shuro-about-card">
+          <p data-i18n="shuro_about_text_1">Шӯрои уламои Маркази исломии Ҷумҳурии Тоҷикистон ягона ниҳоди расмии динӣ ва фатводиҳанда дар кишвар мебошад, ки ба танзими масоили шаръӣ, муайян кардани вақтҳои намоз, оғоз ва анҷоми моҳи шарифи Рамазон, Идҳои Фитр ва Қурбон машғул аст.</p>
+          <p data-i18n="shuro_about_text_2">Ин ниҳоди муътабар зери роҳбарии олимони барҷастаи кишвар фаъолият намуда, баҳри таҳкими ваҳдати миллӣ, тарғиби ахлоқи ҳамидаи исломӣ ва пешгирии ифротгароӣ саҳми арзанда мегузорад.</p>
+        </div>
+      </div>
+
+      <!-- Leadership Grid -->
+      <div class="section-container">
+        <h3 class="section-title centered-title"><i class="fa-solid fa-user-tie"></i> <span data-i18n="shuro_leadership_title">Роҳбарияти Шӯрои Уламо</span></h3>
+        <div class="shuro-leaders-grid">
+          <!-- Chairman -->
+          <div class="leader-card card-glass chairman-card">
+            <div class="leader-avatar-wrap">
+              <div class="leader-avatar"><i class="fa-solid fa-user-graduate"></i></div>
+              <span class="leader-badge-tag" data-i18n="shuro_role_chairman">Раис</span>
+            </div>
+            <h4 class="leader-name" data-i18n="shuro_leader_1_name">Саидмукаррам Абдуқодирзода</h4>
+            <p class="leader-role-desc" data-i18n="shuro_leader_1_role">Раиси Шӯрои уламои Маркази исломии Ҷумҳурии Тоҷикистон</p>
+          </div>
+
+          <!-- First Deputy -->
+          <div class="leader-card card-glass">
+            <div class="leader-avatar-wrap">
+              <div class="leader-avatar"><i class="fa-solid fa-user-tie"></i></div>
+              <span class="leader-badge-tag secondary" data-i18n="shuro_role_deputy_1">Муовини аввал</span>
+            </div>
+            <h4 class="leader-name" data-i18n="shuro_leader_2_name">Абдулбасир Саидзода</h4>
+            <p class="leader-role-desc" data-i18n="shuro_leader_2_role">Муовини аввали Раиси Шӯрои уламои Маркази исломии Ҷумҳурии Тоҷикистон</p>
+          </div>
+
+          <!-- Second Deputy -->
+          <div class="leader-card card-glass">
+            <div class="leader-avatar-wrap">
+              <div class="leader-avatar"><i class="fa-solid fa-user-tie"></i></div>
+              <span class="leader-badge-tag secondary" data-i18n="shuro_role_deputy_2">Муовин</span>
+            </div>
+            <h4 class="leader-name" data-i18n="shuro_leader_3_name">Ҳусайн Мӯсозода</h4>
+            <p class="leader-role-desc" data-i18n="shuro_leader_3_role">Муовини Раиси Шӯрои уламои Маркази исломии Ҷумҳурии Тоҷикистон</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Other Members List -->
+      <div class="section-container">
+        <h3 class="section-title"><i class="fa-solid fa-users"></i> <span data-i18n="shuro_members_title">Аъзои дигари Шӯро</span></h3>
+        <div class="card-glass shuro-members-list-card">
+          <div class="shuro-members-grid">
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_4">Ҷамолиддин Хомӯшов</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_5">Ҳикматуллоҳ Сиҷоатзода</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_6">Исроил Саидов</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_7">Мирзоолим Азимов</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_8">Раҳим Каримов</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+            <div class="member-list-item">
+              <i class="fa-solid fa-circle-user"></i>
+              <div>
+                <h5 class="member-name" data-i18n="shuro_member_9">Азалшоҳи Шарифзода</h5>
+                <span class="member-role" data-i18n="shuro_member_role">Узви Шӯрои уламои Маркази исломӣ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contacts & Links Section -->
+      <div class="section-container shuro-contacts-container">
+        <div class="shuro-contacts-grid">
+          <!-- Contact details card -->
+          <div class="card-glass shuro-contact-details">
+            <h3 class="shuro-contact-title"><i class="fa-solid fa-address-book"></i> <span data-i18n="shuro_contact_title">Маълумоти Тамос</span></h3>
+            <div class="contact-items-list">
+              <div class="contact-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div>
+                  <span class="contact-label" data-i18n="shuro_contact_addr_label">Суроға:</span>
+                  <span class="contact-value" data-i18n="shuro_contact_addr_val">Ҷумҳурии Тоҷикистон, ш. Душанбе, кӯчаи Шодмонӣ 58</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fa-solid fa-phone"></i>
+                <div>
+                  <span class="contact-label" data-i18n="shuro_contact_phone_label">Телефон:</span>
+                  <span class="contact-value">+(992 37) 224-25-11</span>
+                </div>
+              </div>
+              <div class="contact-item">
+                <i class="fa-solid fa-envelope"></i>
+                <div>
+                  <span class="contact-label" data-i18n="shuro_contact_email_label">Почтаи электронӣ:</span>
+                  <span class="contact-value">info@shuroiulamo.tj</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Official website link card -->
+          <div class="card-glass shuro-website-link-card">
+            <div class="web-link-icon"><i class="fa-solid fa-globe"></i></div>
+            <h4 data-i18n="shuro_web_card_title">Сомонаи расмии Шӯрои уламо</h4>
+            <p data-i18n="shuro_web_card_desc">Барои дастрасӣ ба фатвоҳои навтарин, мақолаҳои динӣ ва саволу ҷавобҳо, ба сомонаи расмии Маркази Исломӣ гузаред.</p>
+            <a href="https://shuroiulamo.tj" target="_blank" rel="noopener noreferrer" class="btn-shuro-web">
+              <span>shuroiulamo.tj</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+        </div>
+      </div>
     </section>
 
   </main>
@@ -541,6 +692,7 @@
           <a href="#prayers" data-tab="prayers" class="footer-nav-link" data-i18n="tab_namaz">Намоз</a>
           <a href="#duas" data-tab="duas" class="footer-nav-link" data-i18n="tab_duas">Дуоҳо</a>
           <a href="#tasbih" data-tab="tasbih" class="footer-nav-link" data-i18n="tab_tasbih">Тасбеҳ</a>
+          <a href="#shuro" data-tab="shuro" class="footer-nav-link" data-i18n="tab_shuro">Шӯрои уламо</a>
         </div>
         <div class="footer-links">
           <h4 data-i18n="footer_features_title">Имконотҳо</h4>
