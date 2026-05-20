@@ -161,7 +161,7 @@ const translations = {
     footer_pages_title: "Саҳифаҳо",
     footer_features_title: "Имконотҳо",
     footer_social_title: "Мо дар шабакаҳо",
-    footer_text: "© 2026 SAJDA — Лоиҳаи Мукаммали Веб-Барномаи Исломӣ барои Тоҷикистон. Вақтҳо аз рӯи тақвими тасдиқшудаи Шӯрои уламои ҶТ ҳисоб мешаванд.",
+    footer_text: "© 2026 SAJDA — роҳнамои рӯз. Вақтҳо аз рӯи тақвими тасдиқшудаи Шӯрои уламои ҶТ ҳисоб мешаванд.",
 
     // ── Prayer guide content (step labels) ────────
     step_num_prefix:    "Қадами",
@@ -325,7 +325,7 @@ const translations = {
     footer_pages_title: "Страницы",
     footer_features_title: "Возможности",
     footer_social_title: "Мы в соцсетях",
-    footer_text: "© 2026 SAJDA — Исламский Веб-Портал для Таджикистана. Времена намазов рассчитаны по утверждённому календарю Совета улемов РТ.",
+    footer_text: "© 2026 SAJDA — путеводитель дня. Времена намазов рассчитаны по утверждённому календарю Совета улемов РТ.",
 
     // ── Prayer guide content (step labels) ────────
     step_num_prefix:    "Шаг",
