@@ -2917,23 +2917,26 @@ body {
 @media (max-width: 768px) {
   /* 1. Global Viewport Locking & Scroll resets */
   body {
-    overflow: hidden !important;
-    height: 100vh !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
   }
   
   .main-content {
-    height: calc(100vh - 60px) !important;
-    overflow: hidden !important;
+    height: auto !important;
+    min-height: calc(100vh - 60px) !important;
+    overflow-y: visible !important;
     margin-top: 60px !important;
     padding: 0 !important;
   }
   
   .tab-panel {
     display: none !important;
-    height: 100% !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch;
-    padding: 16px 12px !important;
+    height: auto !important;
+    min-height: 100% !important;
+    overflow-y: visible !important;
+    padding: 12px 10px !important;
+    box-sizing: border-box !important;
   }
   
   .tab-panel.active {
@@ -2999,18 +3002,18 @@ body {
   }
   
   #home-tab.tab-panel.active {
-    overflow: hidden !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: space-between !important;
-    padding: 10px !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
+    overflow-y: visible !important;
   }
   
   /* 4. Compact Hero Container on Mobile */
   .hero-section {
     min-height: auto !important;
-    padding: 12px 8px !important;
-    margin-bottom: 6px !important;
+    padding: 10px 8px !important;
+    margin-bottom: 8px !important;
     border-radius: 16px !important;
     flex-shrink: 0 !important;
     background: linear-gradient(135deg, hsla(142, 72%, 29%, 0.15), hsla(210, 32%, 7%, 0.3)) !important;
@@ -3036,11 +3039,17 @@ body {
   
   /* Compact Location Picker */
   .location-picker-container {
-    margin-bottom: 4px !important;
+    margin: 0 auto 6px auto !important;
     font-size: 13px !important;
-    gap: 6px !important;
+    gap: 8px !important;
     justify-content: center !important;
     width: 100% !important;
+    max-width: 280px !important;
+    padding: 6px 12px !important;
+    border-radius: 30px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
   }
   
   .custom-select select {
@@ -3049,8 +3058,7 @@ body {
   }
   
   .geo-badge {
-    padding: 4px 10px !important;
-    font-size: 11px !important;
+    display: none !important;
   }
   
   /* Compact Countdown Timer */
@@ -3060,13 +3068,13 @@ body {
   }
   
   .countdown-container h2 {
-    font-size: 14px !important;
+    font-size: 13px !important;
     margin-bottom: 2px !important;
     color: var(--text-secondary) !important;
   }
   
   .countdown-container .timer {
-    font-size: 32px !important;
+    font-size: 28px !important;
     font-weight: 800 !important;
     letter-spacing: -0.5px !important;
     margin: 2px 0 !important;
@@ -3075,7 +3083,7 @@ body {
   }
   
   .countdown-container p {
-    font-size: 11px !important;
+    font-size: 10px !important;
     margin: 0 !important;
     color: var(--text-secondary) !important;
   }
@@ -3084,7 +3092,6 @@ body {
   .section-container {
     padding: 0 !important;
     margin: 0 !important;
-    flex-grow: 1 !important;
     display: flex !important;
     flex-direction: column !important;
   }
@@ -3094,56 +3101,59 @@ body {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(3, 1fr) !important;
     gap: 8px !important;
-    flex-grow: 1 !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 0 4px !important;
+    box-sizing: border-box !important;
   }
   
   /* Compact Cards styling */
   .prayer-card {
-    padding: 8px 12px !important;
+    padding: 8px 10px !important;
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 10px !important;
-    border-radius: 14px !important;
+    justify-content: space-between !important;
+    gap: 6px !important;
+    border-radius: 12px !important;
     margin: 0 !important;
+    position: relative !important;
   }
   
   .prayer-card .prayer-icon {
-    width: 34px !important;
-    height: 34px !important;
-    font-size: 14px !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 12px !important;
     margin: 0 !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     flex-shrink: 0 !important;
   }
   
   .prayer-card .prayer-name {
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-weight: 700 !important;
     text-align: left !important;
     margin: 0 !important;
     flex-grow: 1 !important;
+    padding-left: 4px !important;
   }
   
   .prayer-card .prayer-time {
-    font-size: 13px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
     text-align: right !important;
     margin: 0 !important;
+    flex-shrink: 0 !important;
   }
   
   /* Adjust current/active active-badge inside card */
   .prayer-card .active-badge {
     position: absolute !important;
-    top: 4px !important;
-    right: 4px !important;
-    padding: 2px 6px !important;
-    font-size: 8px !important;
-    border-radius: 4px !important;
+    top: 2px !important;
+    right: 2px !important;
+    padding: 1px 4px !important;
+    font-size: 7px !important;
+    border-radius: 3px !important;
   }
   
   /* 6. Standard Table Scroll responsiveness */
