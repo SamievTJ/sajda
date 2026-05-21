@@ -1,0 +1,20 @@
+# 🕌 SAJDA Islamic Portal SEO Robots Configuration
+# Crawlers will index all frontend files, assets, databases, and multilingual scripts
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /styles.css
+Allow: /app.js
+Allow: /lang.js
+Allow: /hadiths_data.js
+Allow: /duas_data.js
+Allow: /prayer_guide_data.js
+Allow: /prayers_2026.js
+Allow: /images/
+
+# Host configuration
+Host: https://sajda.tj
+
+# Sitemap pointer for crawler navigation
+Sitemap: https://sajda.tj/sitemap.xml
