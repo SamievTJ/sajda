@@ -152,6 +152,33 @@ function initNavigation() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  // Mobile hamburger menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (menuToggle && navLinks) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navLinks.classList.toggle('open');
+      menuToggle.innerHTML = navLinks.classList.contains('open') ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+    });
+    
+    // Close menu when a nav-link is clicked
+    const allNavLinks = document.querySelectorAll('.nav-link');
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      });
+    });
+    
+    // Close menu when clicking outside
+    document.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    });
+  }
 }
 
 // 6. THEME TOGGLE
