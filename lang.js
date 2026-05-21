@@ -126,7 +126,6 @@ const translations = {
     tasbih_title:       "Тасбеҳи Электронӣ",
     tasbih_select_title:"Интихоби Зикр",
     tasbih_current_lbl: "Адади ҷорӣ /",
-    tasbih_tap_hint:    "Клик ё пахши экран барои ҳисоб",
     tasbih_total_lbl:   "Ҷамъи зикрҳо:",
     tasbih_reset:       "Аз нав",
 
@@ -319,7 +318,6 @@ const translations = {
     tasbih_title:       "Электронный Тасбих",
     tasbih_select_title:"Выбор Зикра",
     tasbih_current_lbl: "Текущий счёт /",
-    tasbih_tap_hint:    "Нажмите или коснитесь экрана для счёта",
     tasbih_total_lbl:   "Всего зикров:",
     tasbih_reset:       "Сброс",
 
