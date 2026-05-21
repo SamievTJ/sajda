@@ -3024,8 +3024,7 @@ body {
   .hero-crescent,
   .dates-display,
   .centered-header-with-btn,
-  .verse-of-day-section,
-  .footer {
+  .verse-of-day-section {
     display: none !important;
   }
   
@@ -3166,6 +3165,89 @@ body {
   
   .prayer-table {
     min-width: 500px !important; /* Force min-width so horizontal scrolling works beautifully */
+  }
+  
+  /* 7. Premium Compact Centered Mobile Footer */
+  .footer {
+    display: block !important;
+    background: var(--bg-color) !important;
+    border-top: 1px solid var(--panel-border) !important;
+    padding: 20px 16px !important;
+    margin-top: 24px !important;
+    box-sizing: border-box !important;
+  }
+  
+  .footer-container {
+    padding: 0 !important;
+  }
+  
+  .footer-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 16px !important;
+  }
+  
+  .footer-brand {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .footer-brand p {
+    display: none !important;
+  }
+  
+  .footer-links {
+    display: none !important;
+  }
+  
+  .footer-social {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  
+  .footer-social h4 {
+    font-size: 13px !important;
+    margin-bottom: 8px !important;
+    color: var(--text-primary) !important;
+  }
+  
+  .social-icons {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 16px !important;
+  }
+  
+  .social-icons a {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 16px !important;
+  }
+  
+  .footer-bottom {
+    margin-top: 16px !important;
+    padding-top: 16px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+  
+  .footer-bottom p {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    color: var(--text-secondary) !important;
+  }
+  
+  .footer-version {
+    font-size: 10px !important;
+    color: var(--accent) !important;
   }
 }
 
