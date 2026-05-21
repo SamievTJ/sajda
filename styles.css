@@ -18,6 +18,14 @@
   --shadow-sm: 0 2px 8px rgba(60, 40, 0, 0.08);
   --shadow-md: 0 8px 24px rgba(60, 40, 0, 0.12);
   --card-glow: 0 0 16px hsla(142, 68%, 26%, 0.10);
+  
+  /* Audit defined variables & Fallbacks */
+  --accent-color: var(--primary);
+  --dur: 3s;
+  --delay: 0s;
+  --max-op: 0.7;
+  --sdur: 4s;
+  --sdelay: 0s;
 }
 
 body.dark-theme {
@@ -35,6 +43,8 @@ body.dark-theme {
   --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
   --card-glow: 0 0 20px hsla(142, 76%, 36%, 0.15);
+  
+  --accent-color: var(--primary);
 }
 
 * {
