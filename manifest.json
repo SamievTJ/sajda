@@ -1,0 +1,20 @@
+{
+  "name": "SAJDA — Вақти Намоз дар Тоҷикистон",
+  "short_name": "SAJDA",
+  "description": "Вақти намоз, тарзи намозхонӣ, тасбеҳ, дуоҳо, 40 ҳадис, 99 номи Аллоҳ ва қибла",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1a7a3a",
+  "background_color": "#0f172a",
+  "lang": "tg",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "education"]
+}

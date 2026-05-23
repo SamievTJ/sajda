@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="12" fill="#1a7a3a"/>
+  <g fill="#fff" transform="translate(8, 10) scale(0.75)">
+    <!-- Dome -->
+    <path d="M32 8c-8 0-14 6-14 14h28c0-8-6-14-14-14z"/>
+    <!-- Crescent on top -->
+    <circle cx="32" cy="6" r="3"/>
+    <circle cx="33.5" cy="6" r="2.2" fill="#1a7a3a"/>
+    <!-- Building body -->
+    <rect x="18" y="22" width="28" height="24" rx="2"/>
+    <!-- Door -->
+    <path d="M27 46V34a5 5 0 0 1 10 0v12z" fill="#1a7a3a"/>
+    <!-- Windows -->
+    <rect x="21" y="26" width="4" height="5" rx="1" fill="#1a7a3a"/>
+    <rect x="39" y="26" width="4" height="5" rx="1" fill="#1a7a3a"/>
+    <!-- Minarets -->
+    <rect x="12" y="16" width="4" height="30" rx="1"/>
+    <rect x="48" y="16" width="4" height="30" rx="1"/>
+    <circle cx="14" cy="14" r="2.5"/>
+    <circle cx="50" cy="14" r="2.5"/>
+  </g>
+</svg>

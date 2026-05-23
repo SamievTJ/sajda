@@ -40,7 +40,13 @@
     99 номи Аллоҳ, Асмоул Ҳусно, асмои хусно,
     Исломи Тоҷикистон, Ислом Точикистон,
     намоз вақт Тоҷикистон, время намаза Душанбе,
-    время намаза Таджикистан, расписание намазов
+    время намаза Таджикистан, расписание намазов,
+    вақти саҳар ва ифтор, тақвими рамазон, дуои рӯзона,
+    зикри субҳ ва шом, тарзи таҳорат, тарзи ғусл, суннатҳои намоз,
+    исломи тоҷикӣ, мусулмонони тоҷик, масҷидҳои тоҷикистон,
+    sajda.tj, sajda app, prayer times tajikistan, namaz time dushanbe,
+    расписание намазов таджикистан, время намаза сегодня,
+    prayer times central asia, islamic app tajik, salah times today
   ">
 
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -116,6 +122,14 @@
   }
   </script>
 
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="manifest" href="manifest.json">
+  <link rel="canonical" href="https://sajda.tj/">
+  <meta name="theme-color" content="#1a7a3a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta property="og:image" content="https://sajda.tj/favicon.svg">
+  <meta property="og:url" content="https://sajda.tj/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -127,7 +141,7 @@
   <!-- Top Navigation Bar -->
   <header class="navbar">
     <div class="nav-container">
-      <a href="#" class="logo">
+      <a href="/" class="logo" onclick="event.preventDefault(); document.querySelector('.nav-link[data-tab=&quot;home&quot;]').click();">
         <i class="fa-solid fa-mosque"></i>
         <span data-i18n="app_title">SAJDA</span>
       </a>
@@ -267,6 +281,7 @@
           <span data-i18n="home_verse_title">Ояти Рӯз</span>
         </h3>
         <div class="verse-card" id="verse-of-day-card">
+          <button class="share-btn" onclick="shareVerse()" aria-label="Share"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
           <div class="verse-card-header">
             <i class="fa-solid fa-star-and-crescent"></i>
             <span class="verse-card-title" id="verse-surah-label">Сураи Бақара</span>
@@ -376,6 +391,7 @@
       </div>
       <div class="categories-container" id="duas-categories">
         <button class="cat-btn active" data-category="all"     data-i18n="duas_cat_all">Ҳама</button>
+        <button class="cat-btn"        data-category="favorites" data-i18n="duas_cat_favorites">⭐ Дилхоҳ</button>
         <button class="cat-btn"        data-category="Хӯрок"   data-i18n="duas_cat_food">Хӯрок</button>
         <button class="cat-btn"        data-category="Сафар"   data-i18n="duas_cat_travel">Сафар</button>
         <button class="cat-btn"        data-category="Хона"    data-i18n="duas_cat_home">Хона</button>
@@ -644,7 +660,7 @@
       </div>
       <div class="footer-bottom">
         <p data-i18n="footer_text">© 2026 SAJDA — роҳнамои рӯз. Вақтҳо аз рӯи тақвими тасдиқшудаи Шӯрои уламои ҶТ ҳисоб мешаванд.</p>
-        <p class="footer-version">v2.0 • Сохта бо ❤️ барои уммати тоҷик</p>
+        <p class="footer-version">v2.0 • Сохта шуд бо ❤️ барои мардуми тоҷик</p>
       </div>
     </div>
   </footer>

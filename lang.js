@@ -116,6 +116,7 @@ const translations = {
     duas_cat_sleep:     "Хоб",
     duas_cat_fast:      "Рӯза",
     duas_cat_other:     "Дигарҳо",
+    duas_cat_favorites: "⭐ Дилхоҳ",
     duas_empty:         "Хуш омадед, дуо пайдо нашуд.",
 
     // ── 99 NAMES TAB ──────────────────────────────
@@ -308,6 +309,7 @@ const translations = {
     duas_cat_sleep:     "Сон",
     duas_cat_fast:      "Пост",
     duas_cat_other:     "Прочее",
+    duas_cat_favorites: "⭐ Избранное",
     duas_empty:         "Дуа не найдены.",
 
     // ── 99 NAMES TAB ──────────────────────────────

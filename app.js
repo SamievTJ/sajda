@@ -112,6 +112,17 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Geolocate user's city
   geolocateUserCity();
+
+  // Request notification permission after short delay
+  requestNotificationPermission();
+
+  // Pull-to-refresh for mobile
+  initPullToRefresh();
+
+  // Register Service Worker for PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  }
 });
 
 // 5. NAVIGATION / TABS
@@ -133,6 +144,9 @@ function initNavigation() {
       document.getElementById(`${tab}-tab`).classList.add('active');
       
       state.currentTab = tab;
+      
+      // Smooth scroll to top on tab switch
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
       // Additional triggers when entering a tab
       if (tab === 'qibla') {
@@ -343,8 +357,8 @@ function updateCountdown() {
   document.getElementById('next-prayer-name').innerText = `${t('next_prayer')} ${nextP.name}`;
   document.getElementById('countdown-timer').innerText = `${diffHrs}:${diffMns}:${diffScs}`;
   
-  // Optional silent browser notification trigger exactly at prayer time
-  if (diffSecs === 0) {
+  // Notification 10 minutes before prayer time
+  if (diffSecs === 600 && localStorage.getItem('sajda_notif_enabled')) {
     triggerSilentNotification(nextP.name);
   }
 }
@@ -352,15 +366,16 @@ function updateCountdown() {
 function triggerSilentNotification(prayerName) {
   if (typeof Notification === 'undefined') return;
   if (Notification.permission === "granted") {
-    const notifTitle = currentLang === 'ru' ? 'Время Намаза!' : 'Вақти Намоз Омад!';
-    const notifBody  = currentLang === 'ru' ? `Наступило время намаза ${prayerName}.` : `Вақти намози ${prayerName} фаро расид.`;
+    const lang = (typeof currentLang !== 'undefined') ? currentLang : 'tj';
+    const notifTitle = lang === 'ru' ? '🕌 Скоро время намаза!' : '🕌 Вақти намоз наздик аст!';
+    const notifBody = lang === 'ru'
+      ? `Через 10 минут наступит время намаза ${prayerName}.`
+      : `10 дақиқа то вақти намози ${prayerName} монд.`;
     new Notification(notifTitle, {
       body: notifBody,
-      silent: true,
-      icon: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/svgs/solid/mosque.svg"
+      icon: "favicon.svg",
+      badge: "favicon.svg"
     });
-  } else if (Notification.permission !== "denied") {
-    Notification.requestPermission();
   }
 }
 
@@ -757,6 +772,7 @@ function renderHadithDetail(id) {
   const meaningLabel  = t('label_meaning_hd');
   
   detailContainer.innerHTML = `
+    <button class="share-btn" onclick="shareHadith(${h.id})" aria-label="Share"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
     <h2 class="hadith-header-title">${title}</h2>
     
     <div class="arabic-block">${h.arabic}</div>
@@ -778,6 +794,7 @@ function renderHadithDetail(id) {
       </div>
     </div>
   `;
+  detailContainer.style.position = 'relative';
 }
 
 // 12. DUAS LOGIC
@@ -803,12 +820,30 @@ function initDuas() {
   });
 }
 
+function getDuaFavorites() {
+  try { return JSON.parse(localStorage.getItem('sajda_fav_duas') || '[]'); }
+  catch(e) { return []; }
+}
+
+function toggleDuaFavorite(title) {
+  let favs = getDuaFavorites();
+  if (favs.includes(title)) {
+    favs = favs.filter(f => f !== title);
+  } else {
+    favs.push(title);
+  }
+  localStorage.setItem('sajda_fav_duas', JSON.stringify(favs));
+  return favs.includes(title);
+}
+
 function renderDuas(category) {
   const container = document.getElementById('duas-container');
   let filtered = duasData;
+  const favs = getDuaFavorites();
   
-  if (category !== 'all') {
-    // Filter by category_tj matching, plus group misc categories under "Дигарҳо"
+  if (category === 'favorites') {
+    filtered = duasData.filter(d => favs.includes(d.title_tj) || favs.includes(d.title_ru));
+  } else if (category !== 'all') {
     const miscCats = ["Истиғфор", "Мусибат", "Бозор", "Боронӣ", "Раъд", "Никоҳ", "Қабристон", "Дигарҳо", "Субҳ", "Шом", "Беморӣ", "Либос"];
     if (category === "Дигарҳо") {
       filtered = duasData.filter(d => miscCats.includes(d.category_tj));
@@ -823,13 +858,17 @@ function renderDuas(category) {
   filtered.forEach(d => {
     const cat = lang === 'ru' ? d.category_ru : d.category_tj;
     const title = lang === 'ru' ? d.title_ru : d.title_tj;
+    const titleTj = d.title_tj;
     const translation = lang === 'ru' ? d.translation_ru : d.translation_tj;
+    const isFav = favs.includes(d.title_tj) || favs.includes(d.title_ru);
+    const starClass = isFav ? 'fa-solid fa-star' : 'fa-regular fa-star';
+    const starColor = isFav ? 'color: var(--accent);' : '';
     
     cardsHtml += `
       <div class="dua-card card-glass">
         <div class="dua-card-header">
           <span class="dua-badge" data-cat="${d.category_tj}">${cat}</span>
-          <button class="btn-icon favorited"><i class="fa-regular fa-star"></i></button>
+          <button class="btn-icon dua-fav-btn" data-title-tj="${titleTj}" style="${starColor}"><i class="${starClass}"></i></button>
         </div>
         <h3 class="dua-title">${title}</h3>
         <div class="dua-arabic arabic-text">${d.arabic}</div>
@@ -839,7 +878,22 @@ function renderDuas(category) {
     `;
   });
   
+  if (!cardsHtml && category === 'favorites') {
+    const emptyMsg = lang === 'ru' ? 'Нет избранных дуа. Нажмите ⭐ чтобы добавить.' : 'Дуои дилхоҳ нест. ⭐-ро пахш кунед барои илова.';
+    cardsHtml = `<div class="empty-state"><i class="fa-regular fa-star" style="font-size:40px;color:var(--accent)"></i><p>${emptyMsg}</p></div>`;
+  }
+  
   container.innerHTML = cardsHtml || `<div class="empty-state">${t('duas_empty')}</div>`;
+  
+  // Attach favorite button listeners
+  container.querySelectorAll('.dua-fav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const titleTj = btn.getAttribute('data-title-tj');
+      const nowFav = toggleDuaFavorite(titleTj);
+      btn.querySelector('i').className = nowFav ? 'fa-solid fa-star' : 'fa-regular fa-star';
+      btn.style.color = nowFav ? 'var(--accent)' : '';
+    });
+  });
 }
 
 function filterDuas(query) {
@@ -1192,4 +1246,171 @@ function updateTasbihProgress() {
   } else {
     circle.classList.remove('completed');
   }
+}
+
+
+// ─────────────────────────────────────────────────────────────────
+// 🔔 NOTIFICATION PERMISSION REQUEST (Custom Banner)
+// ─────────────────────────────────────────────────────────────────
+function requestNotificationPermission() {
+  if (typeof Notification === 'undefined') return;
+  if (Notification.permission !== 'default') return;
+  // Don't show if user already dismissed
+  if (localStorage.getItem('sajda_notif_dismissed')) return;
+
+  setTimeout(() => {
+    showNotificationBanner();
+  }, 6000);
+}
+
+function showNotificationBanner() {
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'tj';
+  const title = lang === 'ru' ? 'Напоминание о намазе' : 'Ёдоварии вақти намоз';
+  const msg = lang === 'ru'
+    ? 'Хотите получать уведомления за 10 минут до начала каждого намаза?'
+    : 'Мехоҳед 10 дақиқа пеш аз ҳар намоз огоҳинома гиред?';
+  const btnYes = lang === 'ru' ? 'Да, включить' : 'Бале, фаъол кун';
+  const btnNo = lang === 'ru' ? 'Нет' : 'Не';
+
+  const banner = document.createElement('div');
+  banner.id = 'notif-banner';
+  banner.innerHTML = `
+    <div class="notif-banner-icon"><i class="fa-solid fa-bell"></i></div>
+    <div class="notif-banner-text">
+      <strong>${title}</strong>
+      <p>${msg}</p>
+    </div>
+    <div class="notif-banner-actions">
+      <button id="notif-yes" class="notif-btn-yes">${btnYes}</button>
+      <button id="notif-no" class="notif-btn-no">${btnNo}</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    banner.classList.add('visible');
+  });
+
+  document.getElementById('notif-yes').addEventListener('click', () => {
+    Notification.requestPermission().then(perm => {
+      if (perm === 'granted') {
+        localStorage.setItem('sajda_notif_enabled', 'true');
+      }
+    });
+    closeBanner(banner);
+  });
+
+  document.getElementById('notif-no').addEventListener('click', () => {
+    localStorage.setItem('sajda_notif_dismissed', 'true');
+    closeBanner(banner);
+  });
+}
+
+function closeBanner(el) {
+  el.classList.remove('visible');
+  setTimeout(() => el.remove(), 400);
+}
+
+// ─────────────────────────────────────────────────────────────────
+// 🔄 PULL-TO-REFRESH (Mobile)
+// ─────────────────────────────────────────────────────────────────
+function initPullToRefresh() {
+  let startY = 0;
+  let pulling = false;
+  const threshold = 80;
+  let indicator = null;
+
+  // Create pull indicator element
+  indicator = document.createElement('div');
+  indicator.id = 'pull-refresh-indicator';
+  indicator.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i>';
+  document.body.prepend(indicator);
+
+  document.addEventListener('touchstart', (e) => {
+    if (window.scrollY === 0 && state.currentTab === 'home') {
+      startY = e.touches[0].clientY;
+      pulling = true;
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!pulling) return;
+    const currentY = e.touches[0].clientY;
+    const diff = currentY - startY;
+    if (diff > 0 && diff < 150 && window.scrollY === 0) {
+      indicator.style.transform = `translateY(${Math.min(diff, threshold)}px)`;
+      indicator.style.opacity = Math.min(diff / threshold, 1);
+      if (diff > threshold) {
+        indicator.classList.add('ready');
+      } else {
+        indicator.classList.remove('ready');
+      }
+    }
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if (!pulling) return;
+    pulling = false;
+    if (indicator.classList.contains('ready')) {
+      indicator.classList.add('refreshing');
+      // Refresh prayer times
+      updateHomePrayerTimes();
+      updateCountdown();
+      setTimeout(() => {
+        indicator.style.transform = 'translateY(0)';
+        indicator.style.opacity = '0';
+        indicator.classList.remove('ready', 'refreshing');
+      }, 600);
+    } else {
+      indicator.style.transform = 'translateY(0)';
+      indicator.style.opacity = '0';
+    }
+  }, { passive: true });
+}
+
+
+// ─────────────────────────────────────────────────────────────────
+// 📤 SHARE FUNCTIONS (Verse & Hadith)
+// ─────────────────────────────────────────────────────────────────
+function shareVerse() {
+  const arabic = document.getElementById('verse-arabic').textContent;
+  const translation = document.getElementById('verse-translation').textContent;
+  const source = document.getElementById('verse-source').textContent;
+  const text = `${arabic}\n\n${translation}\n\n— ${source}\n\n🕌 sajda.tj`;
+  shareText(text);
+}
+
+function shareHadith(id) {
+  const h = hadithsData.find(item => item.id === id);
+  if (!h) return;
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'tj';
+  const title = lang === 'ru' ? h.title_ru : h.title_tj;
+  const translation = lang === 'ru' ? h.translation_ru : h.translation_tj;
+  const text = `${title}\n\n${h.arabic}\n\n${translation}\n\n🕌 sajda.tj`;
+  shareText(text);
+}
+
+function shareText(text) {
+  if (navigator.share) {
+    navigator.share({ text: text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      showCopyToast();
+    }).catch(() => {});
+  }
+}
+
+function showCopyToast() {
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'tj';
+  const msg = lang === 'ru' ? 'Скопировано!' : 'Нусхабардорӣ шуд!';
+  const toast = document.createElement('div');
+  toast.className = 'copy-toast';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => toast.classList.add('visible'));
+  setTimeout(() => {
+    toast.classList.remove('visible');
+    setTimeout(() => toast.remove(), 300);
+  }, 2000);
 }
