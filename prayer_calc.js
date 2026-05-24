@@ -12,7 +12,7 @@ const PrayerCalc = (function() {
   // Shuroi Ulamo parameters
   const FAJR_ANGLE = 18;
   const ISHA_ANGLE = 17;
-  const MAGHRIB_OFFSET = 19; // minutes after sunset for Shom start
+  const MAGHRIB_OFFSET = 18; // minutes after sunset for Shom (Maghrib) start
   const ASR_METHOD = 2; // Hanafi: shadow = 2 * object + noon shadow
 
   // Dushanbe coordinates
@@ -95,7 +95,7 @@ const PrayerCalc = (function() {
     var haAsr = asrTime(lat, sun.declination, ASR_METHOD);
     var asr = haAsr !== null ? transit + haAsr : null;
 
-    // Maghrib = sunset + 19 minutes (Shuroi Ulamo adds safety margin)
+    // Maghrib = sunset + 18 minutes (after makruh period ends)
     var maghrib = sunset !== null ? sunset + MAGHRIB_OFFSET / 60 : null;
 
     return {
@@ -103,6 +103,7 @@ const PrayerCalc = (function() {
       oftob: formatTime(sunrise),
       peshin: formatTime(transit),
       asr: formatTime(asr),
+      makruh: formatTime(sunset),
       shom: formatTime(maghrib),
       khuftan: formatTime(isha)
     };
