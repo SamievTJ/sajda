@@ -68,18 +68,29 @@ function applyOffsetToTimeStr(timeStr, offset) {
 
 // Get final regional times for a specific date
 const getRegionalTimes = (month, day, city) => {
-  // Ensure we have data for the month/day (fallback to a safe day if out of bounds)
   const safeMonth = Math.max(1, Math.min(12, month));
   let safeDay = Math.max(1, Math.min(31, day));
   
-  // Leap year safety check: if February 29th, fallback to February 28th
   if (safeMonth === 2 && safeDay === 29 && (!prayers2026[2] || !prayers2026[2][29])) {
     safeDay = 28;
   }
   
-  const base = (prayers2026[safeMonth] && prayers2026[safeMonth][safeDay]) 
-               ? prayers2026[safeMonth][safeDay] 
-               : (prayers2026[5] && prayers2026[5][19] ? prayers2026[5][19] : { bomdod: '05:00', oftob: '06:30', peshin: '12:30', asr: '16:00', shom: '19:30', khuftan: '21:00' });
+  var base = null;
+  var currentYear = new Date().getFullYear();
+  
+  // Use static data for 2026 (verified by Shuroi Ulamo)
+  if (currentYear === 2026 && prayers2026[safeMonth] && prayers2026[safeMonth][safeDay]) {
+    base = prayers2026[safeMonth][safeDay];
+  }
+  
+  // Fallback: calculate using astronomical formula (any year)
+  if (!base && typeof PrayerCalc !== 'undefined') {
+    base = PrayerCalc.calculate(currentYear, safeMonth, safeDay);
+  }
+  
+  if (!base) {
+    base = { bomdod: '05:00', oftob: '06:30', peshin: '12:40', asr: '16:00', shom: '19:30', khuftan: '21:00' };
+  }
                
   const offset = cityOffsets[city] || 0;
   
