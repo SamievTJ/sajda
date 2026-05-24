@@ -272,6 +272,41 @@ function updateHomePrayerTimes() {
   document.getElementById('time-asr').innerText = times.asr;
   document.getElementById('time-shom').innerText = times.shom;
   document.getElementById('time-khuftan').innerText = times.khuftan;
+
+  // Update Gregorian date
+  const lang = (typeof currentLang !== 'undefined') ? currentLang : 'tj';
+  const monthsTj = ['', 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  const monthsRu = ['', 'Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн', 'Июл', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'];
+  const mNames = lang === 'ru' ? monthsRu : monthsTj;
+  const gregEl = document.getElementById('gregorian-date');
+  if (gregEl) gregEl.textContent = day + ' ' + mNames[month] + ' ' + now.getFullYear();
+
+  // Update Hijri date (approximate)
+  const hijriEl = document.getElementById('hijri-date');
+  if (hijriEl) {
+    const hijri = gregorianToHijri(now.getFullYear(), month, day);
+    const hijriMonths = ['', 'Muharram', 'Safar', 'Rabi I', 'Rabi II', 'Jumada I', 'Jumada II', 'Rajab', 'Shaban', 'Ramadan', 'Shawwal', 'Dhul Qadah', 'Dhul Hijjah'];
+    const hijriMonthsTj = ['', 'Муҳаррам', 'Сафар', 'Рабеъ I', 'Рабеъ II', 'Ҷумода I', 'Ҷумода II', 'Раҷаб', 'Шаъбон', 'Рамазон', 'Шаввол', 'Зулқаъда', 'Зулҳиҷа'];
+    hijriEl.textContent = hijri.day + ' ' + hijriMonthsTj[hijri.month] + ' ' + hijri.year;
+  }
+}
+
+// Approximate Gregorian to Hijri conversion
+function gregorianToHijri(gy, gm, gd) {
+  var jd = Math.floor((1461 * (gy + 4800 + Math.floor((gm - 14) / 12))) / 4) +
+           Math.floor((367 * (gm - 2 - 12 * Math.floor((gm - 14) / 12))) / 12) -
+           Math.floor((3 * Math.floor((gy + 4900 + Math.floor((gm - 14) / 12)) / 100)) / 4) + gd - 32075;
+  var l = jd - 1948440 + 10632;
+  var n = Math.floor((l - 1) / 10631);
+  l = l - 10631 * n + 354;
+  var j = (Math.floor((10985 - l) / 5316)) * (Math.floor((50 * l) / 17719)) +
+          (Math.floor(l / 5670)) * (Math.floor((43 * l) / 15238));
+  l = l - (Math.floor((30 - j) / 15)) * (Math.floor((17719 * j) / 50)) -
+      (Math.floor(j / 16)) * (Math.floor((15238 * j) / 43)) + 29;
+  var hm = Math.floor((24 * l) / 709);
+  var hd = l - Math.floor((709 * hm) / 24);
+  var hy = 30 * n + j - 30;
+  return { year: hy, month: hm, day: hd };
 }
 
 function updateCountdown() {
